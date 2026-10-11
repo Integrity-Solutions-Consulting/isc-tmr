@@ -13,10 +13,12 @@ import {
 
 import { Button } from "@/components/ui/button"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import { useIsMobile } from "@/hooks/use-mobile"
 import { cn } from "@/lib/utils"
 
 import { DayView, ListView, MonthView, WeekView } from "./calendar-views"
 import { EventEditor } from "./event-editor"
+import { MobileAgenda } from "./mobile-agenda"
 import {
   ActiveFilters,
   EventSearch,
@@ -101,6 +103,7 @@ export function EventManager({
   availableTags = ["Importante", "Urgente", "Trabajo", "Personal", "Equipo", "Cliente"],
   className,
 }: EventManagerProps) {
+  const isMobile = useIsMobile()
   const [events, setEvents] = useState(initialEvents)
   const [currentDate, setCurrentDate] = useState(() => new Date())
   const [view, setView] = useState<CalendarView>(defaultView)
@@ -185,6 +188,42 @@ export function EventManager({
     onDragStart: setDraggedEvent,
     onDragEnd: () => setDraggedEvent(null),
     onDrop: moveEvent,
+  }
+
+  const editor = (
+    <EventEditor
+      open={editorOpen}
+      onOpenChange={setEditorOpen}
+      draft={draft}
+      isMobile={isMobile}
+      categories={categories}
+      colors={colors}
+      availableTags={availableTags}
+      onSave={saveDraft}
+      onDelete={deleteEvent}
+    />
+  )
+
+  // En mobile la grilla de calendario no es usable: se muestra una agenda
+  if (isMobile) {
+    return (
+      <div className={className}>
+        <MobileAgenda
+          selectedDate={currentDate}
+          onSelectDate={setCurrentDate}
+          events={filteredEvents}
+          filters={filters}
+          onFiltersChange={setFilters}
+          colors={colors}
+          categories={categories}
+          availableTags={availableTags}
+          getColor={getColor}
+          onEventClick={openEdit}
+          onCreate={openCreate}
+        />
+        {editor}
+      </div>
+    )
   }
 
   return (
@@ -287,17 +326,7 @@ export function EventManager({
       {view === "day" && <DayView {...viewProps} />}
       {view === "list" && <ListView {...viewProps} />}
 
-      <EventEditor
-        open={editorOpen}
-        onOpenChange={setEditorOpen}
-        draft={draft}
-        isMobile={false}
-        categories={categories}
-        colors={colors}
-        availableTags={availableTags}
-        onSave={saveDraft}
-        onDelete={deleteEvent}
-      />
+      {editor}
     </div>
   )
 }
