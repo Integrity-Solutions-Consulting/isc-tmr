@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { Fragment, useState, useCallback, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -176,7 +176,7 @@ export function EventManager({
     if (!newEvent.title || !newEvent.startTime || !newEvent.endTime) return;
 
     const event: Event = {
-      id: Math.random().toString(36).substr(2, 9),
+      id: crypto.randomUUID(),
       title: newEvent.title,
       description: newEvent.description,
       startTime: newEvent.startTime,
@@ -358,7 +358,7 @@ export function EventManager({
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
           {/* Mobile: Select dropdown */}
           <div className="sm:hidden">
-            <Select value={view} onValueChange={(value: any) => setView(value)}>
+            <Select value={view} onValueChange={(value) => value && setView(value)}>
               <SelectTrigger className="w-full">
                 <SelectValue />
               </SelectTrigger>
@@ -996,13 +996,16 @@ export function EventManager({
                   value={
                     isCreating ? newEvent.category : selectedEvent?.category
                   }
-                  onValueChange={(value) =>
-                    isCreating
-                      ? setNewEvent((prev) => ({ ...prev, category: value }))
-                      : setSelectedEvent((prev) =>
-                          prev ? { ...prev, category: value } : null,
-                        )
-                  }
+                  onValueChange={(value) => {
+                    const category = value ?? undefined;
+                    if (isCreating) {
+                      setNewEvent((prev) => ({ ...prev, category }));
+                      return;
+                    }
+                    setSelectedEvent((prev) =>
+                      prev ? { ...prev, category } : null,
+                    );
+                  }}
                 >
                   <SelectTrigger id="category">
                     <SelectValue placeholder="Select category" />
@@ -1466,7 +1469,7 @@ function WeekView({
   getColorClasses: (color: string) => { bg: string; text: string };
 }) {
   const startOfWeek = new Date(currentDate);
-  startOfWeek.setDate(currentDate.getDay());
+  startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
 
   const weekDays = Array.from({ length: 7 }, (_, i) => {
     const day = new Date(startOfWeek);
@@ -1517,9 +1520,8 @@ function WeekView({
       </div>
       <div className="grid grid-cols-8">
         {hours.map((hour) => (
-          <>
+          <Fragment key={hour}>
             <div
-              key={`time-${hour}`}
               className="border-b border-r p-1 text-[10px] text-muted-foreground sm:p-2 sm:text-xs"
             >
               {hour.toString().padStart(2, "0")}:00
@@ -1549,7 +1551,7 @@ function WeekView({
                 </div>
               );
             })}
-          </>
+          </Fragment>
         ))}
       </div>
     </Card>
