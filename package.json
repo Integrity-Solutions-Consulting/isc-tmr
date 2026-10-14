@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "bun --bun --inspect=1001 next dev -p 4200",
+    "dev": "bun --bun --env-file=.env.local --env-file=.env.localhost --inspect=1001 next dev -p 4200",
     "dev:https": "bun --bun --inspect=1001 next dev -p 4200 --experimental-https --experimental-https-key $HOME/.local/share/isc-dev-certs/dev-key.pem --experimental-https-cert $HOME/.local/share/isc-dev-certs/dev.pem --experimental-https-ca $HOME/.local/share/isc-dev-certs/rootCA.pem",
     "build": "next build",
     "start": "next start"
@@ -20,6 +20,7 @@
     "elysia": "^1.4.30",
     "lucide-react": "^1.52.0",
     "next": "16.3.8",
+    "next-intl": "^4.14.9",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "shadcn": "^4.21.1",

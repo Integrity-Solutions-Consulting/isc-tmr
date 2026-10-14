@@ -1,0 +1,71 @@
+{
+  "metadata": {
+    "description": "Reference app for integrating with the ISC Auth Gate"
+  },
+  "auth": {
+    "welcome": "Welcome to TMR",
+    "tagline": "Time and Activity Tracking",
+    "emailLabel": "Email",
+    "emailPlaceholder": "name@company.com",
+    "signIn": "Sign in with ISC",
+    "or": "Or",
+    "continueWithApple": "Continue with Apple",
+    "continueWithGoogle": "Continue with Google",
+    "terms": "By clicking <b>Sign in</b>, you agree to our <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
+    "errors": {
+      "title": "Couldn't sign in",
+      "connection": "Couldn't reach the ISC portal. Check your connection and try again. If it persists, contact support.",
+      "unknown": "An unexpected error occurred ({code}). If it persists, contact support.",
+      "codes": {
+        "state_not_found": "The sign-in took too long or was opened in another tab. Please try again.",
+        "state_mismatch": "The sign-in took too long or was opened in another tab. Please try again.",
+        "please_restart_the_process": "The sign-in took too long or was opened in another tab. Please try again.",
+        "no_code": "The sign-in took too long or was opened in another tab. Please try again.",
+        "invalid_code": "Couldn't validate access with the ISC portal. Please try again.",
+        "issuer_mismatch": "The response didn't come from the configured ISC portal. Contact support.",
+        "unable_to_get_user_info": "The ISC portal didn't return your user details. If it persists, contact support.",
+        "email_not_found": "The ISC portal didn't return an email for your user. Contact support.",
+        "access_token_invalid": "Your ISC portal access expired or is no longer valid. Please sign in again."
+      }
+    }
+  },
+  "offline": {
+    "title": "Offline",
+    "description": "You're not connected to the internet. Check your network and try again."
+  },
+  "nav": {
+    "segments": {
+      "dashboard": "Home",
+      "activities": "Activities",
+      "hr": "Human resources"
+    },
+    "modules": {
+      "label": "Modules",
+      "home": "Home",
+      "activities": "Activities",
+      "hr": "Human resources"
+    }
+  },
+  "user": {
+    "upgrade": "Upgrade to Pro",
+    "account": "Account",
+    "billing": "Billing",
+    "notifications": "Notifications",
+    "signOut": "Sign out"
+  },
+  "access": {
+    "noOrganization": {
+      "title": "No access to TMR",
+      "description": "Your organization doesn't have access to this app, or you're not a member of a linked organization. Contact your administrator."
+    },
+    "forbidden": {
+      "title": "You don't have access to this section",
+      "description": "Your role in the organization doesn't include the required permission. If you think this is a mistake, contact your administrator.",
+      "back": "Back to home"
+    }
+  },
+  "hr": {
+    "title": "Human resources",
+    "description": "Sample module protected by the gate's hr:access permission."
+  }
+}

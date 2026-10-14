@@ -96,6 +96,22 @@ function DrawerSwipeHandle({
   )
 }
 
+function DrawerSwipeArea({
+  className,
+  ...props
+}: DrawerPrimitive.SwipeArea.Props) {
+  return (
+    <DrawerPrimitive.SwipeArea
+      data-slot="drawer-swipe-area"
+      className={cn(
+        "fixed z-40 touch-none data-disabled:pointer-events-none data-open:pointer-events-none data-[swipe-direction=down]:inset-x-0 data-[swipe-direction=down]:top-0 data-[swipe-direction=down]:h-4 data-[swipe-direction=left]:inset-y-0 data-[swipe-direction=left]:right-0 data-[swipe-direction=left]:w-4 data-[swipe-direction=right]:inset-y-0 data-[swipe-direction=right]:left-0 data-[swipe-direction=right]:w-4 data-[swipe-direction=up]:inset-x-0 data-[swipe-direction=up]:bottom-0 data-[swipe-direction=up]:h-4",
+        className
+      )}
+      {...props}
+    />
+  )
+}
+
 function DrawerContent({
   className,
   children,
@@ -217,6 +233,7 @@ export {
   DrawerPortal,
   DrawerOverlay,
   DrawerSwipeHandle,
+  DrawerSwipeArea,
   DrawerTrigger,
   DrawerClose,
   DrawerContent,

@@ -1,0 +1,71 @@
+{
+  "metadata": {
+    "description": "App de referencia para integrarse con el ISC Auth Gate"
+  },
+  "auth": {
+    "welcome": "Bienvenido a TMR",
+    "tagline": "Control de Tiempos y Actividades",
+    "emailLabel": "Correo electrónico",
+    "emailPlaceholder": "correo@empresa.com",
+    "signIn": "Ingresar con ISC",
+    "or": "O",
+    "continueWithApple": "Continuar con Apple",
+    "continueWithGoogle": "Continuar con Google",
+    "terms": "Al hacer clic en <b>Ingresar</b>, usted está aceptando los <terms>Términos del Servicio</terms> y la <privacy>Política de Privacidad</privacy>.",
+    "errors": {
+      "title": "No se pudo iniciar sesión",
+      "connection": "No se pudo conectar con el portal ISC. Revisa tu conexión e inténtalo de nuevo. Si persiste, contacta a soporte.",
+      "unknown": "Ocurrió un error inesperado ({code}). Si persiste, contacta a soporte.",
+      "codes": {
+        "state_not_found": "El proceso tardó demasiado o se abrió en otra pestaña. Vuelve a intentarlo.",
+        "state_mismatch": "El proceso tardó demasiado o se abrió en otra pestaña. Vuelve a intentarlo.",
+        "please_restart_the_process": "El proceso tardó demasiado o se abrió en otra pestaña. Vuelve a intentarlo.",
+        "no_code": "El proceso tardó demasiado o se abrió en otra pestaña. Vuelve a intentarlo.",
+        "invalid_code": "No se pudo validar el acceso con el portal ISC. Vuelve a intentarlo.",
+        "issuer_mismatch": "La respuesta no proviene del portal ISC configurado. Contacta a soporte.",
+        "unable_to_get_user_info": "El portal ISC no devolvió tus datos de usuario. Si persiste, contacta a soporte.",
+        "email_not_found": "El portal ISC no devolvió un correo electrónico para tu usuario. Contacta a soporte.",
+        "access_token_invalid": "Tu acceso al portal ISC expiró o ya no es válido. Ingresa de nuevo."
+      }
+    }
+  },
+  "offline": {
+    "title": "Sin conexión",
+    "description": "No hay conexión a internet. Revisa tu red y vuelve a intentarlo."
+  },
+  "nav": {
+    "segments": {
+      "dashboard": "Inicio",
+      "activities": "Actividades",
+      "hr": "Recursos humanos"
+    },
+    "modules": {
+      "label": "Módulos",
+      "home": "Inicio",
+      "activities": "Actividades",
+      "hr": "Recursos humanos"
+    }
+  },
+  "user": {
+    "upgrade": "Mejorar a Pro",
+    "account": "Cuenta",
+    "billing": "Facturación",
+    "notifications": "Notificaciones",
+    "signOut": "Cerrar sesión"
+  },
+  "access": {
+    "noOrganization": {
+      "title": "Sin acceso a TMR",
+      "description": "Tu organización no tiene acceso a esta aplicación o no perteneces a una organización vinculada. Contacta al administrador."
+    },
+    "forbidden": {
+      "title": "No tienes acceso a esta sección",
+      "description": "Tu rol en la organización no incluye el permiso necesario. Si crees que es un error, contacta al administrador.",
+      "back": "Volver al inicio"
+    }
+  },
+  "hr": {
+    "title": "Recursos humanos",
+    "description": "Módulo de ejemplo protegido con el permiso hr:access del gate."
+  }
+}

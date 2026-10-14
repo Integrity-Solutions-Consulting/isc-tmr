@@ -139,11 +139,16 @@ export function MonthView({
 }: ViewProps & { onShowDay: (day: Date) => void }) {
   const firstOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1)
   const gridStart = startOfWeek(firstOfMonth)
-  const days = Array.from({ length: 42 }, (_, i) => addDays(gridStart, i))
+  const lastOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0)
+  // Solo las semanas que el mes necesita (4-6): sin filas enteras del mes siguiente
+  const weeks = Math.ceil(
+    (Math.round((lastOfMonth.getTime() - gridStart.getTime()) / 86_400_000) + 1) / 7,
+  )
+  const days = Array.from({ length: weeks * 7 }, (_, i) => addDays(gridStart, i))
   const today = new Date()
 
   return (
-    <Card className="gap-0 overflow-hidden p-0">
+    <Card className="gap-0 overflow-hidden rounded-xl p-0">
       <div className="grid grid-cols-7 border-b bg-muted/40">
         {weekDays(gridStart).map((day) => (
           <div
@@ -154,7 +159,7 @@ export function MonthView({
           </div>
         ))}
       </div>
-      <div className="grid grid-cols-7 grid-rows-6">
+      <div className="grid grid-cols-7">
         {days.map((day) => {
           const dayEvents = eventsOnDay(events, day)
           const inMonth = day.getMonth() === currentDate.getMonth()
@@ -164,7 +169,7 @@ export function MonthView({
             <div
               key={day.toISOString()}
               className={cn(
-                "group/day flex min-h-28 flex-col gap-1 border-r border-b p-1.5 transition-colors nth-[7n]:border-r-0 hover:bg-muted/40",
+                "group/day flex min-h-28 flex-col gap-1 border-r border-b p-1.5 transition-colors nth-[7n]:border-r-0 nth-last-[-n+7]:border-b-0 hover:bg-muted/40",
                 !inMonth && "bg-muted/20 text-muted-foreground",
               )}
               {...dropTarget(() => onDrop(day))}
@@ -246,7 +251,7 @@ export function WeekView({
   const scrollRef = useScrollToMorning()
 
   return (
-    <Card className="gap-0 overflow-hidden p-0">
+    <Card className="gap-0 overflow-hidden rounded-xl p-0">
       <div ref={scrollRef} className="max-h-[calc(100dvh-16rem)] overflow-auto">
         <div className="grid min-w-3xl grid-cols-[4rem_repeat(7,minmax(0,1fr))]">
           <div className="sticky top-0 z-10 border-b bg-card" />
@@ -329,7 +334,7 @@ export function DayView({
   const scrollRef = useScrollToMorning()
 
   return (
-    <Card className="gap-0 overflow-hidden p-0">
+    <Card className="gap-0 overflow-hidden rounded-xl p-0">
       <div ref={scrollRef} className="max-h-[calc(100dvh-16rem)] overflow-auto">
         {HOURS.map((hour) => (
           <div
