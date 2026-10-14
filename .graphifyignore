@@ -1,0 +1,4 @@
+# Skills de agentes: documentación y ejemplos de terceros, no código del proyecto
+.agents/
+.claude/
+skills-lock.json
