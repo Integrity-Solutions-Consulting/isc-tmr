@@ -2,18 +2,7 @@ import { Elysia } from "elysia";
 import { isAPIError } from "better-auth/api";
 
 import { accessTokenVerifyOptions, auth, resourceClient } from "../lib/auth";
-
-/** Rol y permisos del usuario en la organización elegida al iniciar sesión. */
-type Organization = { id: string; role: string; permissions: string[] };
-
-type Principal = {
-  via: "session" | "bearer";
-  sub: string;
-  scopes: string[];
-  /** Solo si la app pidió el scope `organization` y el gate emitió los claims. */
-  org: Organization | null;
-  claims: Record<string, unknown>;
-};
+import { missingPermissions, toPrincipal, type Principal } from "../lib/principal";
 
 /** Qué exige una ruta: scopes (consentimiento de la app) y permisos (rol en la org). */
 type AuthRequirement =
@@ -21,42 +10,12 @@ type AuthRequirement =
   | string[]
   | { scopes?: string[]; permissions?: string[] };
 
-const toScopes = (scope: unknown) =>
-  typeof scope === "string" ? scope.split(" ").filter(Boolean) : [];
-
 const normalize = (requirement: AuthRequirement) =>
   requirement === true
     ? { scopes: undefined, permissions: [] as string[] }
     : Array.isArray(requirement)
       ? { scopes: requirement, permissions: [] as string[] }
       : { scopes: requirement.scopes, permissions: requirement.permissions ?? [] };
-
-// Claims que añade el gate con el scope `organization`
-// (org_id, org_role, permissions: ["todo:read", ...]).
-const toOrganization = (claims: Record<string, unknown>): Organization | null =>
-  typeof claims.org_id === "string"
-    ? {
-        id: claims.org_id,
-        role: typeof claims.org_role === "string" ? claims.org_role : "",
-        permissions: Array.isArray(claims.permissions)
-          ? claims.permissions.filter((p): p is string => typeof p === "string")
-          : [],
-      }
-    : null;
-
-const toPrincipal = (
-  via: Principal["via"],
-  payload: Record<string, unknown>,
-): Principal => ({
-  via,
-  sub: String(payload.sub),
-  scopes: toScopes(payload.scope),
-  org: toOrganization(payload),
-  claims: payload,
-});
-
-const missingPermissions = (principal: Principal, required: string[]) =>
-  required.filter((p) => !principal.org?.permissions.includes(p));
 
 const hasAuthorizationHeader = (headers: Headers) =>
   Boolean(headers.get("authorization"));

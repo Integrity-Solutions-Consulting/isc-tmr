@@ -14,6 +14,9 @@ const issuer = env.OIDC_ISSUER;
 // BETTER_AUTH_SECRET y BETTER_AUTH_URL se leen del entorno.
 export const auth = betterAuth({
   appName: "ISC TMR",
+  // Errores del callback OAuth sin errorCallbackURL recuperable (p. ej. state
+  // perdido o caducado): a nuestro login en vez de la página /api/auth/error
+  onAPIError: { errorURL: "/auth" },
   advanced: {
     // En localhost las cookies no se aíslan por puerto: sin prefijo propio
     // pisaríamos las cookies `better-auth.*` del gate
