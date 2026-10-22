@@ -3,8 +3,10 @@ import { Elysia } from "elysia";
 import { todo } from "./modules/todo";
 import { authPlugin, authRoutes } from "./plugins/auth";
 import { openapiPlugin } from "./plugins/openapi";
+import { healthzPlugin } from "./plugins/healthz";
 
 export const app = new Elysia({ prefix: "/api" })
+  .use(healthzPlugin)
   .use(openapiPlugin)
   .use(authRoutes)
   .use(authPlugin)

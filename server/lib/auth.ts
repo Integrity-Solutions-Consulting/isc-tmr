@@ -3,7 +3,7 @@ import { createAuthClient } from "better-auth/client";
 import { genericOAuth } from "better-auth/plugins/generic-oauth";
 import { oauthProviderResourceClient } from "@better-auth/oauth-provider/resource-client";
 
-import { env } from "./env";
+import { env } from "@/env/server";
 
 export const GATE_PROVIDER_ID = "isc-gate";
 

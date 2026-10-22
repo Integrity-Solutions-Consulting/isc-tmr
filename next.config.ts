@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
+// Valida las variables de entorno al arrancar (t3-env): un .env mal
+// configurado falla aquí y no en la primera petición. En `next build` se omite.
+import "./env/server";
+import "./env/client";
+
 // Usa i18n/request.ts (ruta por defecto del plugin)
 const withNextIntl = createNextIntlPlugin();
 

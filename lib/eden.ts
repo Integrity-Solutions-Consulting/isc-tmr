@@ -1,6 +1,6 @@
 import { treaty } from "@elysia/eden";
 
-// Solo el TIPO: importar el valor `app` metería Better Auth y server/lib/env.ts
+// Solo el TIPO: importar el valor `app` metería Better Auth y env/server
 // (que exige secretos) en el bundle del navegador
 import type { App } from "@/server";
 
